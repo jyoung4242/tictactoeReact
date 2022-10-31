@@ -42,6 +42,14 @@ function Board() {
     if (cellMatrix[2] == cellMatrix[4] && cellMatrix[4] == cellMatrix[6]) {
       if (cellMatrix[2] != null) return { victory: 8, player: cellMatrix[2] };
     }
+
+    //check for tie
+    const tie = cellMatrix.every(cell => {
+      return cell != null;
+    });
+    console.log("tie: ", tie);
+    if (tie) return { victory: -1, player: null };
+
     return null;
   };
 
@@ -62,7 +70,8 @@ function Board() {
   }, [cellMatrix]);
 
   useEffect(() => {
-    if (victory) {
+    console.log(victory);
+    if (victory != null) {
       console.log("end of game");
       setGameSTate("gameover");
     }
